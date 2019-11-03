@@ -3573,8 +3573,9 @@ Sidebar.prototype.getTagsForStencil = function(packageName, stencilName, moreTag
 /**
  * Adds the given stencil palette.
  */
-Sidebar.prototype.addStencilPalette = function(id, title, stencilFile, style, ignore, onInit, scale, tags, customFns)
+Sidebar.prototype.addStencilPalette = function(id, title, stencilFile, style, ignore, onInit, scale, tags, customFns, expanded)
 {
+	expanded = expanded !== undefined ? expanded : false;
 	scale = (scale != null) ? scale : 1;
 	
 	if (this.addStencilsToIndex)
@@ -3606,13 +3607,13 @@ Sidebar.prototype.addStencilPalette = function(id, title, stencilFile, style, ig
 					Math.round(w * scale), Math.round(h * scale), '', stencilName.replace(/_/g, ' '), null, null,
 					this.filterTags(tmp.join(' '))));
 			}
-		}), true, true);
+		}), true, !expanded);
 
-		this.addPaletteFunctions(id, title, false, fns);
+		this.addPaletteFunctions(id, title, expanded, fns);
 	}
 	else
 	{
-		this.addPalette(id, title, false, mxUtils.bind(this, function(content)
+		this.addPalette(id, title, expanded, mxUtils.bind(this, function(content)
 	    {
 			if (style == null)
 			{
